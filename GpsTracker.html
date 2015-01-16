@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+<style>
+html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+</style>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+</head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Animating Symbols</title>
+<div id="map-canvas"></div>     
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+ var locations = {}; //A repository for markers (and the data from which they were contructed).
+
+    //initial dataset for markers
+    var locs = {
+        1: {
+            info: '11111. Some random info here',
+            lat: -37.8139,
+            lng: 144.9634
+        },
+        2: {
+            info: '22222. Some random info here',
+            lat: 46.0553,
+            lng: 14.5144
+        },
+        3: {
+            info: '33333. Some random info here',
+            lat: -33.7333,
+            lng: 151.0833
+        },
+        4: {
+            info: '44444. Some random info here',
+            lat: 27.9798,
+            lng: -81.731
+        }
+    };
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        zoom: 1,
+        maxZoom: 8,
+        minZoom: 1,
+        streetViewControl: false,
+        center: new google.maps.LatLng(30, 30),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    var infowindow = new google.maps.InfoWindow();
+
+    function setMarkers(locObj) {
+        jQuery.each(locObj, function (key, loc) {
+            if (!locations[key] && loc.lat !== undefined && loc.lng !== undefined) {
+                //Marker has not yet been made (and there's enough data to create one).
+
+                //Create marker
+                loc.marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(loc.lat, loc.lng),
+                    map: map
+                });
+
+                //Attach click listener to marker
+                google.maps.event.addListener(loc.marker, 'click', (function (key) {
+                    return function () {
+                        infowindow.setContent(locations[key].info);
+                        infowindow.open(map, locations[key].marker);
+                    }
+                })(key));
+
+                //Remember loc in the `locations` so its info can be displayed and so its marker can be deleted.
+                locations[key] = loc;
+            } else if (locations[key] && loc.remove) {
+                //Remove marker from map
+                if (locations[key].marker) {
+                    locations[key].marker.setMap(null);
+                }
+                //Remove element from `locations`
+                delete locations[key];
+            } else if (locations[key]) {
+                //Update the previous data object with the latest data.
+                jQuery.extend(locations[key], loc);
+                if (loc.lat !== undefined && loc.lng !== undefined) {
+                    //Update marker position (maybe not necessary but doesn't hurt).
+                    locations[key].marker.setPosition(
+                    new google.maps.LatLng(loc.lat, loc.lng));
+                }
+                //locations[key].info looks after itself.
+            }
+        });
+    }
+
+
+
+
+    setMarkers(locs); //Create markers from the initial dataset served with the document.
+    //ajaxObj.get(); //Start the get cycle.
+
+    // *******************
+
+
+
+//Ajax code
+var interval = 5000;  // 1000 = 1 second, 3000 = 3 seconds
+function doAjax() {
+    jQuery.ajax({
+            type: 'POST',
+            url: '/codes/LiveVisitsStats/postlivecounter.php',
+            dataType : 'html',
+            success: function (data) {
+            var arr = data.split('|');
+                    jQuery('#counterint').html(arr[0]);
+                    jQuery('#extrainfoscounter').html(arr[1]);   
+                    jQuery('#testdiv').html(arr[2]);         
+
+
+
+//test: simulated ajax
+var testLocs = {
+        1: {
+            info: '1. New Random info and new position',
+            lat: -37,
+            lng: 124.9634
+        },
+        2: {
+            lat: 70,
+            lng: 14.5144
+        },
+        3: {
+            info: '3. New Random info'
+        },
+        4: {
+            remove: true
+        },
+        5: {
+            info: '55555. Added',
+            lat: -37,
+            lng: 0
+        }
+    };
+setMarkers(testLocs);                   
+
+            },
+            complete: function (data) {
+                    // Schedule the next
+                    setTimeout(doAjax, interval);
+            }
+    });
+}
+setTimeout(doAjax, interval);
+</script>
+
+
+
+</html>
