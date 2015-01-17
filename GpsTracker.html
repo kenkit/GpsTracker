@@ -1,159 +1,118 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
   <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-<style>
-html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-</style>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-</head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Animating Symbols</title>
-<div id="map-canvas"></div>     
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+    </style>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Network Monitor</title>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+    //<![CDATA[
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script>
- var locations = {}; //A repository for markers (and the data from which they were contructed).
-
-    //initial dataset for markers
-    var locs = {
-        1: {
-            info: '11111. Some random info here',
-            lat: -37.8139,
-            lng: 144.9634
-        },
-        2: {
-            info: '22222. Some random info here',
-            lat: 46.0553,
-            lng: 14.5144
-        },
-        3: {
-            info: '33333. Some random info here',
-            lat: -33.7333,
-            lng: 151.0833
-        },
-        4: {
-            info: '44444. Some random info here',
-            lat: 27.9798,
-            lng: -81.731
-        }
+    var customIcons = {
+      1: {
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_blue.png',
+        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
+      },
+      0: {
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_red.png',
+        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
+      }
     };
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: 1,
-        maxZoom: 8,
-        minZoom: 1,
-        streetViewControl: false,
-        center: new google.maps.LatLng(30, 30),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-    var infowindow = new google.maps.InfoWindow();
 
-    function setMarkers(locObj) {
-        jQuery.each(locObj, function (key, loc) {
-            if (!locations[key] && loc.lat !== undefined && loc.lng !== undefined) {
-                //Marker has not yet been made (and there's enough data to create one).
+   //global array to store our markers
+var markersArray = [];
+var map = new google.maps.Map(document.getElementById("map"), {
+            center : new google.maps.LatLng(37.80815648152641, 140.95355987548828),
+            zoom : 13,
+            mapTypeId : 'roadmap'
+        });
+var infoWindow = new google.maps.InfoWindow;
 
-                //Create marker
-                loc.marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(loc.lat, loc.lng),
-                    map: map
-                });
 
-                //Attach click listener to marker
-                google.maps.event.addListener(loc.marker, 'click', (function (key) {
-                    return function () {
-                        infowindow.setContent(locations[key].info);
-                        infowindow.open(map, locations[key].marker);
-                    }
-                })(key));
 
-                //Remember loc in the `locations` so its info can be displayed and so its marker can be deleted.
-                locations[key] = loc;
-            } else if (locations[key] && loc.remove) {
-                //Remove marker from map
-                if (locations[key].marker) {
-                    locations[key].marker.setMap(null);
-                }
-                //Remove element from `locations`
-                delete locations[key];
-            } else if (locations[key]) {
-                //Update the previous data object with the latest data.
-                jQuery.extend(locations[key], loc);
-                if (loc.lat !== undefined && loc.lng !== undefined) {
-                    //Update marker position (maybe not necessary but doesn't hurt).
-                    locations[key].marker.setPosition(
-                    new google.maps.LatLng(loc.lat, loc.lng));
-                }
-                //locations[key].info looks after itself.
-            }
+    function load() {
+        
+
+        // your first call to get & process inital data
+	downloadUrl("nwmxml.php", processXML); 
+
+    }
+
+    function processXML(data) {
+        var xml = data.responseXML;
+        var markers = xml.documentElement.getElementsByTagName("marker");
+        //clear markers before you start drawing new ones
+        resetMarkers(markersArray)
+        for(var i = 0; i < markers.length; i++) {
+            var host = markers[i].getAttribute("host");
+            var type = markers[i].getAttribute("active");
+            var lastupdate = markers[i].getAttribute("lastupdate");
+            var point = new google.maps.LatLng(parseFloat(markers[i].getAttribute("lat")), parseFloat(markers[i].getAttribute("lng")));
+            var html = "<b>" + "Host: </b>" + host + "<br>" + "<b>Last Updated: </b>" + lastupdate + "<br>";
+            var icon = customIcons[type] || {};
+            var marker = new google.maps.Marker({
+                map : map,
+                position : point,
+                icon : icon.icon,
+                shadow : icon.shadow
+            });
+            //store marker object in a new array
+            markersArray.push(marker);
+            bindInfoWindow(marker, map, infoWindow, html);
+
+
+        }
+            // set timeout after you finished processing & displaying the first lot of markers. Rember that requests on the server can take some time to complete. SO you want to make another one
+            // only when the first one is completed.
+            setTimeout(function() {
+                downloadUrl("nwmxml.php", processXML(data));
+            }, 5000);
+    }
+
+//clear existing markers from the map
+function resetMarkers(arr){
+    for (var i=0;i<arr.length; i++){
+        arr[i].setMap(null);
+
+    }
+    //reset the main marker array for the next call
+    arr=[];
+}
+    function bindInfoWindow(marker, map, infoWindow, html) {
+        google.maps.event.addListener(marker, 'click', function() {
+            infoWindow.setContent(html);
+            infoWindow.open(map, marker);
         });
     }
 
+    function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest;
 
-
-
-    setMarkers(locs); //Create markers from the initial dataset served with the document.
-    //ajaxObj.get(); //Start the get cycle.
-
-    // *******************
-
-
-
-//Ajax code
-var interval = 5000;  // 1000 = 1 second, 3000 = 3 seconds
-function doAjax() {
-    jQuery.ajax({
-            type: 'POST',
-            url: '/codes/LiveVisitsStats/postlivecounter.php',
-            dataType : 'html',
-            success: function (data) {
-            var arr = data.split('|');
-                    jQuery('#counterint').html(arr[0]);
-                    jQuery('#extrainfoscounter').html(arr[1]);   
-                    jQuery('#testdiv').html(arr[2]);         
-
-
-
-//test: simulated ajax
-var testLocs = {
-        1: {
-            info: '1. New Random info and new position',
-            lat: -37,
-            lng: 124.9634
-        },
-        2: {
-            lat: 70,
-            lng: 14.5144
-        },
-        3: {
-            info: '3. New Random info'
-        },
-        4: {
-            remove: true
-        },
-        5: {
-            info: '55555. Added',
-            lat: -37,
-            lng: 0
-        }
-    };
-setMarkers(testLocs);                   
-
-            },
-            complete: function (data) {
-                    // Schedule the next
-                    setTimeout(doAjax, interval);
+        request.onreadystatechange = function() {
+            if(request.readyState == 4) {
+                request.onreadystatechange = doNothing;
+                callback(request, request.status);
             }
-    });
-}
-setTimeout(doAjax, interval);
-</script>
+        };
 
+        request.open('GET', url, true);
+        request.send(null);
+    }
+    function doNothing() {}
+	
 
+    //]]>
+
+  </script>
+
+  </head>
+
+  <body onload="load()">
+    <div id="map" style="width: 100%; height: 100%"></div>
+  </body>
 
 </html>
