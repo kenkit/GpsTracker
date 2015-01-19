@@ -1,4 +1,4 @@
-Gps Tracker Server 
+<b>Gps Tracker Server</b> 
 
 
 This is server side that dispalys the device's location on your web browser in realtime, using Ajax.
