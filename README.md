@@ -18,4 +18,4 @@ Any suggestions concerning it's desing are welcome.
 
 <b>Screen Shots</b>
 
-<img src="pic_mountain.jpg" alt="Screen Shot" style="width:304px;height:228px">
+<img src="http://i.imgur.com/P2qkn51.png?1" alt="Screen Shot" style="width:304px;height:228px">
