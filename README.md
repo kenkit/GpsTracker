@@ -13,9 +13,14 @@ To use this programm, just copy this files into your server "www" directory.
 
 <b>I am Looking for help</b>
 
-Currently there are a few errors that I am trying to fix,If you look into the commit, you will notice another version that has a much different error, but it still displays the location on first request, but after that the requests don't get through.
+Currently there are a few errors that I am trying to fix, you will notice the other version that has a much different error, but it still displays the location on first request, but after that the requests don't get through.
+
 Any suggestions concerning it's desing are welcome.
 
-<b>Screen Shots</b>
+<b><u>Screen Shots Ver 1</u></b>
 
-<img src="http://i.imgur.com/P2qkn51.png?1" alt="Screen Shot" style="width:304px;height:228px">
+<img src="http://i.imgur.com/P2qkn51.png?1" alt="Screen Shot Ver 1" style="width:304px;height:228px">
+
+<b><u>Screen Shots Ver 2</u></b>
+
+<img src="http://i.imgur.com/mUxscaW.png?1" alt="Screen Shot Ver 2" style="width:304px;height:228px">
