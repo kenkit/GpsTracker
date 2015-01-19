@@ -33,13 +33,6 @@ header("Content-type: text/xml");
 //</markers>';
 
 
-
-
-
-
-
-
-
 //Version 1
 echo '<markers>
 <marker host="192.168.1.33" lastupdate="2012-03-12 18:02:54" lat="37.805538" lng="150.967235" active="1"/>
