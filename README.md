@@ -15,3 +15,7 @@ To use this programm, just copy this files into your server "www" directory.
 
 Currently there are a few errors that I am trying to fix,If you look into the commit, you will notice another version that has a much different error, but it still displays the location on first request, but after that the requests don't get through.
 Any suggestions concerning it's desing are welcome.
+
+<b>Screen Shots</b>
+
+<img src="pic_mountain.jpg" alt="Screen Shot" style="width:304px;height:228px">
