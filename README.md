@@ -1,4 +1,4 @@
-<b>Gps Tracker Server- HTML/Javascrip/Php</b> 
+<b>Gps Tracker Server- HTML/Javascript/PHP</b> 
 
 
 This is server side that dispalys the device's location on your web browser in realtime using Ajax to form the request arrays.
