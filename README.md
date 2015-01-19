@@ -8,6 +8,7 @@ This is server side that dispalys the device's location on your web browser in r
 Start work after completing the server side, should be easy.
 
 <b>Usage</b>
+
 To use this programm, just copy this files into your server "www" directory.
 
 <b>Looking for help</b>
