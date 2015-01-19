@@ -11,7 +11,7 @@ Start work after completing the server side, should be easy.
 
 To use this programm, just copy this files into your server "www" directory.
 
-<b>Looking for help</b>
+<b>I am Looking for help</b>
 
 Currently there are a few errors that I am trying to fix,If you look into the commit, you will notice another version that has a much different error, but it still displays the location on first request, but after that the requests don't get through.
 Any suggestions concerning it's desing are welcome.
