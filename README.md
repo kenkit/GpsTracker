@@ -1,4 +1,4 @@
-<font size="20"><b>Gps Tracker Server- HTML/Javascript/PHP</b> </font>
+<font size="25"><b>Gps Tracker Server- HTML/Javascript/PHP</b> </font>
 
 
 This is server side that dispalys the device's location on your web browser in realtime using Ajax to form the request arrays.
@@ -10,6 +10,7 @@ Work should begin immediately after completing the server side which should be e
 <b>Usage/How to use</b>
 
 To use this programm, just copy this files into your server "www" directory.
+Open "nwmxml.php" and uncomment the file version you want then comment the others.
 
 <b>I am Looking for help</b>
 

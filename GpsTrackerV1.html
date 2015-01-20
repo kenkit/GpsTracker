@@ -25,6 +25,7 @@
 
    //global array to store our markers .
 var markersArray = [];
+//Had to bring the following here due to some errors.
 var map;
 var infoWindow;
     function load() {
@@ -87,7 +88,7 @@ function resetMarkers(arr){
             infoWindow.open(map, marker);
         });
     }
-
+//Our download url function
     function downloadUrl(url, callback) {
         var request = window.ActiveXObject ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest;
 
