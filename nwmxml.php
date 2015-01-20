@@ -12,10 +12,7 @@ echo "<user id=\"4\" name=\"Joske Vermeulen\" age=\"20\" lat=\"51.204155\" lng=\
 echo "<user id=\"5\" name=\"Timmy den Beir\" age=\"21\" lat=\"51.209263\" lng=\"4.339720\" type=\"0\"/>";
 echo "<user id=\"6\" name=\"Ben von Duppen\" age=\"23\" lat=\"51.168308\" lng=\"4.394287\" type=\"0\"/>";
 echo "</users>";
-?>
 
-<?php
-header("Content-type: text/xml");
 
 
 //Googles version
