@@ -49,29 +49,7 @@ var fluster = new Fluster2(map);
         }
       });
 
-var input = document.getElementById('searchTextField');
-var autocomplete = new google.maps.places.Autocomplete(input);
-autocomplete.bindTo('bounds', map);
-google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    var place = autocomplete.getPlace();
-    if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
-    } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(17);  // Why 17? Because it looks good.
-    }
 
-    var address = '';
-    if (place.address_components) {
-        address = [(place.address_components[0] &&
-                    place.address_components[0].short_name || ''),
-                   (place.address_components[1] &&
-                    place.address_components[1].short_name || ''),
-                   (place.address_components[2] &&
-                    place.address_components[2].short_name || '')
-                  ].join(' ');
-    }
-});
 
 // Initialize Fluster
 // This will set event handlers on the map and calculate clusters the first time.
@@ -144,3 +122,4 @@ function doNothing() {}
   </body>
 
 </html>
+
