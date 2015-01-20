@@ -57,8 +57,11 @@ var infoWindow;
             var host = markers[i].getAttribute("host");
             var type = markers[i].getAttribute("active");
             var lastupdate = markers[i].getAttribute("lastupdate");
+            var BatteryStatus = markers[i].getAttribute("BatteryStatus");
+	    var Model = markers[i].getAttribute("Model");
             var point = new google.maps.LatLng(parseFloat(markers[i].getAttribute("lat")), parseFloat(markers[i].getAttribute("lng")));
-            var html = "<b>" + "Host: </b>" + host + "<br>" + "<b>Last Updated: </b>" + lastupdate + "<br>";
+            var html = "<b>" + "Host: </b>" + host + "<br>" + "<b>Last Updated: </b>" + 
+            lastupdate + "<br>"+ "<b>BatteryStatus: </b>" + BatteryStatus + " % <br>" + "<b>Phone Model: </b>" + Model + " <br>";
             var icon = customIcons[type] || {};
             var marker = new google.maps.Marker({
                 map : map,

@@ -51,6 +51,9 @@ while ($row = @mysql_fetch_assoc($result)){
   echo 'lat="' . $row['lat'] . '" ';
   echo 'lng="' . $row['lng'] . '" ';
   echo 'active="' . $row['active'] . '" ';
+  echo 'BatteryStatus="' . $row['BatteryStatus'] . '" ';
+  echo 'Model="' . $row['Model'] . '" ';
+ 
   echo '/>';
 }
 
