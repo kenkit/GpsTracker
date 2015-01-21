@@ -128,7 +128,7 @@ google.maps.event.addListener(marker, 'click', function() {
 function resetMarkers(arr){
     for (var i=0;i<arr.length; i++){
         arr[i].setMap(null);
-	infoBubbles.removeBubble(map, marker);
+	infoBubble.removeBubble(map, marker);
     }
     //reset the main marker array for the next call
     arr=[];
