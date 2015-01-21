@@ -36,12 +36,7 @@ var markersArray = [];
 var map;
 var infoWindow;
 
-   var infoBubble = new InfoBubble({
-      maxWidth: 300,
-      backgroundColor: '#2ee343',
-      borderWidth: 2,
-      borderColor: 'rgb(68, 68, 68)'
-    });
+
 
 
     function load() {
@@ -88,10 +83,15 @@ var infoWindow;
         '<p><center><img src="'+id+'.jpg" class="bro_image"></center> </p>'+
         '<p><button class="button_inverse" style="padding-left: 23px; padding-right:23px; margin-left:31px;" href="#">Rate this Bro!</button></p>'+
         */'</div>';
+   var infoBubble = new InfoBubble({
+      maxWidth: 300,
+      backgroundColor: '#2ee343',
+      borderWidth: 2,
+      borderColor: 'rgb(68, 68, 68)'
+    });
 
 
-
-    infoBubble.open(map, marker);
+   
 
     var div = document.createElement('DIV');
     div.innerHTML = 'No pictures uploaded by this user.';
@@ -129,7 +129,7 @@ google.maps.event.addListener(marker, 'click', function() {
 function resetMarkers(arr){
     for (var i=0;i<arr.length; i++){
         arr[i].setMap(null);
-	infoBubble.removeBubble(map, marker);
+	infoBubble.removeBubble();
     }
     //reset the main marker array for the next call
     arr=[];
