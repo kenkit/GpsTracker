@@ -41,7 +41,7 @@ var infoWindow;
             zoom : 2,
              mapTypeId:google.maps.MapTypeId.ROADMAP
         });
- infoWindow = new google.maps.InfoWindow;
+// infoWindow = new google.maps.InfoWindow;
 
         // your first call to get & process inital data
 	downloadUrl("getGpsPoints.php",processXML); 
@@ -93,6 +93,11 @@ function resetMarkers(arr){
 }
     function bindInfoWindow(marker, map, infoWindow, html) {
         google.maps.event.addListener(marker, 'click', function() {
+        	
+    infowindow = new google.maps.InfoWindow({
+    content: locations[i][0],
+      maxWidth: 170
+    });
             infoWindow.setContent(html);
             infoWindow.open(map, marker);
         });
