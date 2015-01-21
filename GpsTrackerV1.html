@@ -33,7 +33,9 @@
 var markersArray = [];
 //Had to bring the following here due to some errors.
 var map;
-var infoWindow;
+var infoWindow= new google.maps.InfoWindow({
+      maxWidth: 170
+    });
     function load() {
         
 	map = new google.maps.Map(document.getElementById("map"), {
@@ -41,7 +43,7 @@ var infoWindow;
             zoom : 2,
              mapTypeId:google.maps.MapTypeId.ROADMAP
         });
-// infoWindow = new google.maps.InfoWindow;
+
 
         // your first call to get & process inital data
 	downloadUrl("getGpsPoints.php",processXML); 
@@ -93,12 +95,7 @@ function resetMarkers(arr){
 }
     function bindInfoWindow(marker, map, infoWindow, html) {
         google.maps.event.addListener(marker, 'click', function() {
- 
-    infowindow = new google.maps.InfoWindow({
-    content: html,
-      maxWidth: 170
-    });
-           // infoWindow.setContent(html);
+            infoWindow.setContent(html);
             infoWindow.open(map, marker);
         });
     }
