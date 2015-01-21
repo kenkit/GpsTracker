@@ -5,18 +5,13 @@ This is server side that dispalys the device's location on your web browser in r
 
 <b>Gps Tracker Client side -Android</b>
 
-Work should begin immediately after completing the server side which should be easy.
+Work has begun since the server side is complete.
 
 <b>Usage/How to use</b>
 
 To use this programm, just copy this files into your server "www" directory.
 Open "nwmxml.php" and uncomment the file version you want then comment the others.
 
-<b>I am Looking for help</b>
-
-Currently there are a few errors that I am trying to fix, you will notice the other version that has a much different error, but it still displays the location on first request, but after that the requests don't get through.
-
-Any suggestions concerning it's desing are welcome.
 
 <b><u>Screen Shots Ver 1</u></b>
 
