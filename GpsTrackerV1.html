@@ -93,12 +93,12 @@ function resetMarkers(arr){
 }
     function bindInfoWindow(marker, map, infoWindow, html) {
         google.maps.event.addListener(marker, 'click', function() {
-        	
+ 
     infowindow = new google.maps.InfoWindow({
-    content: locations[i][0],
+    content: html,
       maxWidth: 170
     });
-            infoWindow.setContent(html);
+           // infoWindow.setContent(html);
             infoWindow.open(map, marker);
         });
     }
