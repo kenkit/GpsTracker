@@ -35,7 +35,13 @@ var markersArray = [];
 //Had to bring the following here due to some errors.
 var map;
 var infoWindow;
-var infoBubble;
+
+   var infoBubble = new InfoBubble({
+      maxWidth: 300,
+      backgroundColor: '#2ee343',
+      borderWidth: 2,
+      borderColor: 'rgb(68, 68, 68)'
+    });
 
 
     function load() {
@@ -83,12 +89,7 @@ var infoBubble;
         '<p><button class="button_inverse" style="padding-left: 23px; padding-right:23px; margin-left:31px;" href="#">Rate this Bro!</button></p>'+
         */'</div>';
 
-   var infoBubble = new InfoBubble({
-      maxWidth: 300,
-      backgroundColor: '#2ee343',
-      borderWidth: 2,
-      borderColor: 'rgb(68, 68, 68)'
-    });
+
 
     infoBubble.open(map, marker);
 
