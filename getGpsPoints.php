@@ -7,7 +7,6 @@ $password="toor";
 $database="location";
 
 
-
 function parseToXML($htmlStr)
 {
 $xmlStr=str_replace('<','&lt;',$htmlStr);
@@ -51,9 +50,9 @@ while ($row = @mysql_fetch_assoc($result)){
   echo 'lat="' . $row['lat'] . '" ';
   echo 'lng="' . $row['lng'] . '" ';
   echo 'active="' . $row['active'] . '" ';
-  echo 'BatteryStatus="' . $row['BatteryStatus'] . '" ';
+  echo 'batterystatus="' . $row['batterystatus'] . '" ';
   echo 'Model="' . $row['Model'] . '" ';
- 
+  echo 'phone="' . $row['phone'] . '" ';
   echo '/>';
 }
 
