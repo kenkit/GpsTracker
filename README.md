@@ -6,6 +6,7 @@ This is server side that dispalys the device's location on your web browser in r
 <b>Gps Tracker Client side -Android</b>
 
 Work has begun since the server side is complete.
+I have now setup my box for starting building.
 
 <b>Usage/How to use</b>
 
